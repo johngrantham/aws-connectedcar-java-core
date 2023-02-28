@@ -1,0 +1,31 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "build",
+      "osx": {
+        "command": "mvn",
+        "type": "shell",
+        "args": [
+            "package",
+            "-f",
+            "${workspaceFolder}/main/pom.xml"
+        ]
+      },
+      "group": "build"
+    },
+    {
+      "label": "scan",
+      "osx": {
+        "command": "mvn",
+        "type": "shell",
+        "args": [
+            "dependency-check:check",
+            "-f",
+            "${workspaceFolder}/main/pom.xml"
+        ]
+      },
+      "group": "build"
+    }
+  ]
+}
