@@ -2,19 +2,25 @@ package org.johng.connectedcar.core.shared.config;
 
 public class AccessConfig {
 
-  private String accessKey;
-  private String secretKey;
+  private String accessKeyId;
+  private String secretAccessKey;
+  private String sessionToken;
   
-  public AccessConfig(String accessKey, String secretKey) {
-    this.accessKey = accessKey;
-    this.secretKey = secretKey;
+  public AccessConfig(String accessKeyId, String secretAccessKey, String sessionToken) {
+    this.accessKeyId = accessKeyId;
+    this.secretAccessKey = secretAccessKey;
+    this.sessionToken = sessionToken;
   }
 
-  public String getAccessKey() {
-    return accessKey;
+  public String getAccessKeyId() {
+    return accessKeyId;
   }
 
-  public String getSecretKey() {
-    return secretKey;
+  public String getSecretAccessKey() {
+    return secretAccessKey;
+  }
+
+  public String getSessionToken() {
+    return sessionToken;
   }
 }

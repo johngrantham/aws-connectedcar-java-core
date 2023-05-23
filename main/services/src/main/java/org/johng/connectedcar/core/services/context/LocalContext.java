@@ -11,15 +11,21 @@ import org.johng.connectedcar.core.shared.config.SQSConfig;
 import org.johng.connectedcar.core.shared.config.ServiceConfig;
 
 import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
+import software.amazon.awssdk.auth.credentials.AwsCredentials;
+import software.amazon.awssdk.auth.credentials.AwsCredentialsProvider;
+import software.amazon.awssdk.auth.credentials.AwsSessionCredentials;
 import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedClient;
 import software.amazon.awssdk.http.urlconnection.UrlConnectionHttpClient;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 
+import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.AWSCredentialsProvider;
+import com.amazonaws.auth.AWSSessionCredentials;
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.auth.BasicSessionCredentials;
 import com.amazonaws.services.cognitoidp.AWSCognitoIdentityProvider;
 import com.amazonaws.services.cognitoidp.AWSCognitoIdentityProviderClientBuilder;
 import com.amazonaws.services.sqs.AmazonSQS;
@@ -39,8 +45,9 @@ public class LocalContext extends BaseContext implements IServiceContext {
       ServiceConfig config = new ServiceConfig(
           properties.getProperty(REGION),
           new AccessConfig(
-              properties.getProperty(ACCESS_KEY),
-              properties.getProperty(SECRET_KEY)),
+              properties.getProperty(ACCESS_KEY_ID),
+              properties.getProperty(SECRET_ACCESS_KEY),
+              properties.getProperty(SESSION_TOKEN)),
           new CognitoConfig(
               properties.getProperty(USER_POOL_ID),
               properties.getProperty(CLIENT_ID),
@@ -64,9 +71,10 @@ public class LocalContext extends BaseContext implements IServiceContext {
 
   public synchronized AWSCognitoIdentityProvider getCognitoProvider() {
     if (cognitoProvider == null) {
-	    BasicAWSCredentials credentials = new BasicAWSCredentials(
-	        getConfig().getAccessConfig().getAccessKey(), 
-	        getConfig().getAccessConfig().getSecretKey());
+	    AWSCredentials credentials = new BasicSessionCredentials(
+	        getConfig().getAccessConfig().getAccessKeyId(), 
+	        getConfig().getAccessConfig().getSecretAccessKey(),
+          getConfig().getAccessConfig().getSessionToken());
 	    
 	    AWSCredentialsProvider credentialsProvider = new AWSStaticCredentialsProvider(credentials);
 	    
@@ -84,9 +92,10 @@ public class LocalContext extends BaseContext implements IServiceContext {
   public synchronized DynamoDbEnhancedClient getDynamoDbClient() {
     if (dynamoDbClient == null) {
       StaticCredentialsProvider provider = StaticCredentialsProvider.create(
-        AwsBasicCredentials.create(
-          getConfig().getAccessConfig().getAccessKey(),
-          getConfig().getAccessConfig().getSecretKey()));
+        AwsSessionCredentials.create(
+          getConfig().getAccessConfig().getAccessKeyId(),
+          getConfig().getAccessConfig().getSecretAccessKey(),
+          getConfig().getAccessConfig().getSessionToken()));
 
       DynamoDbClient ddb = DynamoDbClient.builder()
         .credentialsProvider(provider)
@@ -108,9 +117,10 @@ public class LocalContext extends BaseContext implements IServiceContext {
   public synchronized AmazonSQS getSQSClient() {
     if (sqsClient == null)
     {
-	    BasicAWSCredentials credentials = new BasicAWSCredentials(
-	        getConfig().getAccessConfig().getAccessKey(), 
-	        getConfig().getAccessConfig().getSecretKey());
+	    AWSCredentials credentials = new BasicSessionCredentials(
+	        getConfig().getAccessConfig().getAccessKeyId(), 
+	        getConfig().getAccessConfig().getSecretAccessKey(),
+          getConfig().getAccessConfig().getSessionToken());
 	    
 	    AWSCredentialsProvider credentialsProvider = new AWSStaticCredentialsProvider(credentials);
 

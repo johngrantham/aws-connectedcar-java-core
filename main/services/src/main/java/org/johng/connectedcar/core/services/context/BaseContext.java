@@ -6,8 +6,9 @@ public abstract class BaseContext {
   
   protected static final String REGION = "AWS_REGION";
   
-  protected static final String ACCESS_KEY = "AccessKey";
-  protected static final String SECRET_KEY = "SecretKey";
+  protected static final String ACCESS_KEY_ID = "AccessKeyId";
+  protected static final String SECRET_ACCESS_KEY = "SecretAccessKey";
+  protected static final String SESSION_TOKEN = "SessionToken";
   
   protected static final String DEALER_TABLE_NAME = "DealerTableName";
   protected static final String TIMESLOT_TABLE_NAME = "TimeslotTableName";
