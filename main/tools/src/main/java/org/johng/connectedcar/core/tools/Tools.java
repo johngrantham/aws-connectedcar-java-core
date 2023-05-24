@@ -2,9 +2,9 @@ package org.johng.connectedcar.core.tools;
 
 import java.util.Scanner;
 
-import org.johng.connectedcar.core.tools.commands.SeedAppointmentDataCommand;
-import org.johng.connectedcar.core.tools.commands.SeedCustomerDataCommand;
-import org.johng.connectedcar.core.tools.commands.SeedDealerDataCommand;
+import org.johng.connectedcar.core.tools.commands.PopulateAppointmentsCommand;
+import org.johng.connectedcar.core.tools.commands.PopulateCustomersCommand;
+import org.johng.connectedcar.core.tools.commands.PopulateDealersCommand;
 
 public class Tools {
 
@@ -13,28 +13,27 @@ public class Tools {
 
     try {
       System.out.println("Type the command number and press enter");
-      System.out.println("  Type 1 to seed dealer data");
-      System.out.println("  Type 2 to seed customer data");
-      System.out.println("  Type 3 to seed appointment data");
+      System.out.println("  Type 1 to populate dealer data");
+      System.out.println("  Type 2 to populate customer data");
+      System.out.println("  Type 3 to populate appointment data");
 
       scanner = new Scanner(System.in);
       int command = scanner.nextInt();
 
       switch (command) {
         case 1:
-            SeedDealerDataCommand seedDealerDataCommand = new SeedDealerDataCommand();
-            seedDealerDataCommand.execute();
+            PopulateDealersCommand populateDealersCommand = new PopulateDealersCommand();
+            populateDealersCommand.execute();
             break;
         case 2:
-            SeedCustomerDataCommand seedCustomerDataCommand = new SeedCustomerDataCommand();
-            seedCustomerDataCommand.execute();
+            PopulateCustomersCommand populateCustomersCommand = new PopulateCustomersCommand();
+            populateCustomersCommand.execute();
             break;
         case 3:
-            SeedAppointmentDataCommand seedAppointmentDataCommand = new SeedAppointmentDataCommand();
-            seedAppointmentDataCommand.execute();
+            PopulateAppointmentsCommand populateAppointmentsCommand = new PopulateAppointmentsCommand();
+            populateAppointmentsCommand.execute();
             break;
       }
-
     }
     catch (Exception e) {
       e.printStackTrace();
