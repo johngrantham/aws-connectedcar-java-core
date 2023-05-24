@@ -147,7 +147,12 @@ public class CustomerService extends BaseService implements ICustomerService {
 
     Builder<CustomerItem> batchBuilder = WriteBatch.builder(CustomerItem.class).mappedTableResource(table);
 
+    LocalDateTime now = LocalDateTime.now();
+
     for (Customer customer : customers) {
+      customer.setCreateDateTime(now);
+      customer.setUpdateDateTime(now);
+
       batchBuilder.addPutItem(p -> p.item(getTranslator().translate(customer)));
     }
 

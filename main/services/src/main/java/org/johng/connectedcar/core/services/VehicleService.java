@@ -99,8 +99,13 @@ public class VehicleService extends BaseService implements IVehicleService {
 
     Builder<VehicleItem> batchBuilder = WriteBatch.builder(VehicleItem.class).mappedTableResource(table);
 
+    LocalDateTime now = LocalDateTime.now();
+
     for (Vehicle vehicle : vehicles) {
-      batchBuilder.addPutItem(p -> p.item(getTranslator().translate(vehicle)));
+      vehicle.setCreateDateTime(now);
+      vehicle.setUpdateDateTime(now);
+
+      batchBuilder.addPutItem(getTranslator().translate(vehicle));
     }
 
     BatchWriteItemEnhancedRequest request = 

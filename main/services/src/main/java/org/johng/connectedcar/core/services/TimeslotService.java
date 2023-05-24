@@ -105,8 +105,13 @@ public class TimeslotService extends BaseService implements ITimeslotService {
 
     Builder<TimeslotItem> batchBuilder = WriteBatch.builder(TimeslotItem.class).mappedTableResource(table);
 
+    LocalDateTime now = LocalDateTime.now();
+
     for (Timeslot timeslot : timeslots) {
-      batchBuilder.addPutItem(p -> p.item(getTranslator().translate(timeslot)));
+      timeslot.setCreateDateTime(now);
+      timeslot.setUpdateDateTime(now);
+
+      batchBuilder.addPutItem(getTranslator().translate(timeslot));
     }
 
     BatchWriteItemEnhancedRequest request = 

@@ -1,5 +1,7 @@
 package org.johng.connectedcar.core.tools;
 
+import java.time.Duration;
+import java.time.Instant;
 import java.util.Scanner;
 
 import org.johng.connectedcar.core.tools.commands.PopulateAppointmentsCommand;
@@ -8,7 +10,7 @@ import org.johng.connectedcar.core.tools.commands.PopulateDealersCommand;
 
 public class Tools {
 
-  public static void Main(String[] args) {
+  public static void main(String[] args) {
     Scanner scanner = null;
 
     try {
@@ -19,6 +21,8 @@ public class Tools {
 
       scanner = new Scanner(System.in);
       int command = scanner.nextInt();
+
+      Instant start = Instant.now();        
 
       switch (command) {
         case 1:
@@ -34,6 +38,11 @@ public class Tools {
             populateAppointmentsCommand.execute();
             break;
       }
+
+      Instant end = Instant.now();   
+      Duration elapsed = Duration.between(start, end);      
+
+      System.out.println("Finished: " + elapsed.getSeconds() + " seconds");
     }
     catch (Exception e) {
       e.printStackTrace();

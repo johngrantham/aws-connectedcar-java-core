@@ -23,9 +23,8 @@ import org.johng.connectedcar.core.tools.data.DealerData;
 
 public abstract class BaseCommand {
 
-  protected static final String DEALERS_FILE_PATH = "data/dealers";
-  protected static final String CUSTOMERS_FILE_PATH = "data/customers";
-  protected static final String CREDENTIALS_FILE_PATH = "data/credentials";
+  protected static final String DEALERS_FILE_PATH = "main/tools/src/main/java/org/johng/connectedcar/core/tools/data/dealers";
+  protected static final String CUSTOMERS_FILE_PATH = "main/tools/src/main/java/org/johng/connectedcar/core/tools/data/customers";
 
   protected static final String DATE_FORMAT = "yyyy-MM-dd";
 
@@ -87,6 +86,7 @@ public abstract class BaseCommand {
     try {
       return new CsvToBeanBuilder<DealerData>(new FileReader(file))
         .withType(DealerData.class)
+        .withSeparator(';')
         .build()
         .parse();
     } 
@@ -102,6 +102,7 @@ public abstract class BaseCommand {
     try {
       return new CsvToBeanBuilder<CustomerData>(new FileReader(file))
         .withType(CustomerData.class)
+        .withSeparator(';')
         .build()
         .parse();
     } 

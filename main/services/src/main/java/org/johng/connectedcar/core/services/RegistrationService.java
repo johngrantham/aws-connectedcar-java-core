@@ -193,8 +193,14 @@ public class RegistrationService extends BaseService implements IRegistrationSer
 
     Builder<RegistrationItem> batchBuilder = WriteBatch.builder(RegistrationItem.class).mappedTableResource(table);
 
+    LocalDateTime now = LocalDateTime.now();
+
     for (Registration registration : registrations) {
-      batchBuilder.addPutItem(p -> p.item(getTranslator().translate(registration)));
+      registration.setStatusCode(StatusCodeEnum.Active);
+      registration.setCreateDateTime(now);
+      registration.setUpdateDateTime(now);
+
+      batchBuilder.addPutItem(getTranslator().translate(registration));
     }
 
     BatchWriteItemEnhancedRequest request = 

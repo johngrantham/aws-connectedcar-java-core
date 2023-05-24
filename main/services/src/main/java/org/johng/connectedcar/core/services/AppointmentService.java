@@ -1,6 +1,7 @@
 package org.johng.connectedcar.core.services;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -162,8 +163,16 @@ public class AppointmentService extends BaseService implements IAppointmentServi
 
     Builder<AppointmentItem> batchBuilder = WriteBatch.builder(AppointmentItem.class).mappedTableResource(table);
 
+    LocalDateTime now = LocalDateTime.now();
+
     for (Appointment appointment : appointments) {
-      batchBuilder.addPutItem(p -> p.item(getTranslator().translate(appointment)));
+      appointment.setAppointmentId(UUID.randomUUID().toString());
+      appointment.setCreateDateTime(now);
+      appointment.setUpdateDateTime(now);
+
+      AppointmentItem item = getTranslator().translate(appointment);
+
+      batchBuilder.addPutItem(p -> p.item(item));
     }
 
     BatchWriteItemEnhancedRequest request = 

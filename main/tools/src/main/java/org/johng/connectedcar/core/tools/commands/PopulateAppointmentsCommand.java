@@ -67,7 +67,7 @@ public class PopulateAppointmentsCommand extends BaseCommand {
         }
       }
 
-      getAppointmentService().batchUpdate(appointments);
+      if (appointments.size() > 0) getAppointmentService().batchUpdate(appointments);
     });
   }
 }
