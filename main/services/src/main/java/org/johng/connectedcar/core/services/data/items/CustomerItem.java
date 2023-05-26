@@ -22,6 +22,7 @@ public class CustomerItem extends BaseItem {
     this.username = username;
   }
   
+  @DynamoDbAttribute("firstname")
   public String getFirstname() {
     return firstname;
   }
@@ -30,6 +31,7 @@ public class CustomerItem extends BaseItem {
     this.firstname = firstname;
   }
   
+  @DynamoDbAttribute("lastname")
   public String getLastname() {
     return lastname;
   }
