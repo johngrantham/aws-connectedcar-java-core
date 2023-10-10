@@ -16,6 +16,7 @@ public class RegistrationItem extends BaseItem {
   private String vin = null;
   private StatusCodeEnum statusCode = null;
 
+  @DynamoDbAttribute("username")
   @DynamoDbPartitionKey
   @DynamoDbSecondarySortKey(indexNames = VEHICLE_REGISTRATION_INDEX)
   public String getUsername() {
@@ -26,6 +27,7 @@ public class RegistrationItem extends BaseItem {
     this.username = username;
   }
 
+  @DynamoDbAttribute("vin")
   @DynamoDbSortKey
   @DynamoDbSecondaryPartitionKey(indexNames = VEHICLE_REGISTRATION_INDEX)
   public String getVin() {

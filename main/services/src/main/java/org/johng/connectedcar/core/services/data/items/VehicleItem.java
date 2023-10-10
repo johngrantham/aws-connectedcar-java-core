@@ -17,6 +17,7 @@ public class VehicleItem extends BaseItem {
   private String vehiclePin = null;
   private VehicleCodeEnum vehicleCode = null;
 
+  @DynamoDbAttribute("vin")
   @DynamoDbPartitionKey
   public String getVin() {
     return vin;

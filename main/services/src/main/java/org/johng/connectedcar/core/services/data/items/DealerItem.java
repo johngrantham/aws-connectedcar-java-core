@@ -17,6 +17,7 @@ public class DealerItem extends BaseItem {
   private Address address = null;
   private StateCodeEnum stateCode = null;
   
+  @DynamoDbAttribute("dealerId")
   @DynamoDbPartitionKey
   public String getDealerId() {
     return dealerId;

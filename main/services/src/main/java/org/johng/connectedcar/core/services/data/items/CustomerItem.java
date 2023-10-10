@@ -13,6 +13,7 @@ public class CustomerItem extends BaseItem {
   private String lastnameLower = null;
   private String phoneNumber = null;
 
+  @DynamoDbAttribute("username")
   @DynamoDbPartitionKey
   public String getUsername() {
     return username;

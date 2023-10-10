@@ -14,6 +14,7 @@ public class EventItem extends BaseItem {
   private Long timestamp = null;
   private EventCodeEnum eventCode = null;
 
+  @DynamoDbAttribute("vin")
   @DynamoDbPartitionKey
   public String getVin() {
     return vin;
@@ -23,6 +24,7 @@ public class EventItem extends BaseItem {
     this.vin = vin;
   }
 
+  @DynamoDbAttribute("timestamp")
   @DynamoDbSortKey
   public Long getTimestamp() {
     return timestamp;

@@ -15,6 +15,7 @@ public class TimeslotItem extends BaseItem implements Comparable<TimeslotItem> {
   private String serviceDateHour = null;
   private int serviceBayCount = 0;
 
+  @DynamoDbAttribute("dealerId")
   @DynamoDbPartitionKey
   public String getDealerId() {
     return dealerId;
@@ -24,6 +25,7 @@ public class TimeslotItem extends BaseItem implements Comparable<TimeslotItem> {
     this.dealerId = dealerId;
   }
   
+  @DynamoDbAttribute("serviceDateHour")
   @DynamoDbSortKey
   public String getServiceDateHour() {
     return serviceDateHour;
